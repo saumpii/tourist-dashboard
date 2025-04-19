@@ -7,9 +7,11 @@ import { translateToEnglish } from '../../../utils/translateText';
 export async function POST(req) {
   try {
     const data = await req.json();
-    const { translatedText, detectedLanguage } = await translateToEnglish(data.content);
-    data.translatedText = translatedText;
-    data.language = detectedLanguage;
+    //const { translatedText, detectedLanguage } = await translateToEnglish(data.content);
+   // data.translatedText = translatedText;
+    //data.language = detectedLanguage;
+    data.translatedText = data.content;
+    data.language = "en";
     data.starRating = classifyRating(data.sentimentScore);
     
     const feedback = await Feedback.create(data);
