@@ -35,14 +35,18 @@ export async function POST(req) {
   
       // TEMP: Bypass translation & rating
     //  const data = await req.json();
-    const result = sentiment.analyze(data.content);
-    const { translatedText, detectedLanguage } = await translateToEnglish(data.content);
-        data.translatedText = translatedText;
-        data.language = detectedLanguage;
-        data.sentimentScore = result.comparative; // more normalized
-        data.starRating = classifyRating(result.comparative);
+    
+    //const { translatedText, detectedLanguage } = await translateToEnglish(data.content);
+     //   data.translatedText = translatedText;
+        //data.language = detectedLanguage;
+      
          //data.starRating = 3;
-  
+         const result = sentiment.analyze(data.content);
+         data.sentimentScore = result.comparative; // more normalized
+         data.starRating = classifyRating(result.comparative);
+         data.translatedText = data.content;
+         data.language = "en";
+         
       const feedback = await Feedback.create(data);
       console.log("✅ Feedback Saved:", feedback);
   
