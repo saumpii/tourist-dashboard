@@ -35,7 +35,8 @@ export async function POST(req) {
     const { translatedText, detectedLanguage } = await translateToEnglish(data.content);
         data.translatedText = translatedText;
         data.language = detectedLanguage;
-         data.starRating = 3;
+        data.starRating = classifyRating(data.sentimentScore);
+         //data.starRating = 3;
   
       const feedback = await Feedback.create(data);
       console.log("✅ Feedback Saved:", feedback);
