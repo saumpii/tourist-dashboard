@@ -1,11 +1,8 @@
 import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/mongodb';
 import Feedback from '@/models/Feedback';
-import classifyRating from '@/utils/classifyRating';
-import { translateToEnglish } from '@/utils/translateText';
-import classifyRating from '@/utils/classifyRating';
-
-
+import classifyRating from '../../../utils/classifyRating';
+import { translateToEnglish } from '../../../utils/translateText';
 
 export async function POST(req) {
   try {
