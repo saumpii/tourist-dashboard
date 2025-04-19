@@ -3,6 +3,9 @@ import dbConnect from '@/lib/mongodb';
 import Feedback from '@/models/Feedback';
 import classifyRating from '../../../utils/classifyRating';
 import { translateToEnglish } from '../../../utils/translateText';
+import Sentiment from 'sentiment';
+const sentiment = new Sentiment();
+
 
 /*export async function POST(req) {
   try {
@@ -32,10 +35,12 @@ export async function POST(req) {
   
       // TEMP: Bypass translation & rating
     //  const data = await req.json();
+    const result = sentiment.analyze(data.content);
     const { translatedText, detectedLanguage } = await translateToEnglish(data.content);
         data.translatedText = translatedText;
         data.language = detectedLanguage;
-        data.starRating = classifyRating(data.sentimentScore);
+        data.sentimentScore = result.comparative; // more normalized
+        data.starRating = classifyRating(result.comparative);
          //data.starRating = 3;
   
       const feedback = await Feedback.create(data);
