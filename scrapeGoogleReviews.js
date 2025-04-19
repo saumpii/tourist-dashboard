@@ -51,10 +51,10 @@ async function scrapeReviews(searchTerm, city) {
     await page.waitForSelector('.m6QErb.DxyBCb.kA9KIf.dS8AEf', { timeout: 30000 });
     console.log("✅ Found scroll container");
 
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 5; i++) {
       await page.evaluate(() => {
         const el = document.querySelector('.m6QErb.DxyBCb.kA9KIf.dS8AEf');
-        if (el) el.scrollBy(0, 1500);
+        if (el) el.scrollBy(0, 500);
         console.log(`✅ Scraped ${reviews.length} reviews for "${city}"`);
       });
       await new Promise((resolve) => setTimeout(resolve, 1000));
