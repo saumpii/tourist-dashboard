@@ -4,7 +4,7 @@ import Feedback from '@/models/Feedback';
 import classifyRating from '../../../utils/classifyRating';
 import { translateToEnglish } from '../../../utils/translateText';
 
-export async function POST(req) {
+/*export async function POST(req) {
   try {
     const data = await req.json();
     //const { translatedText, detectedLanguage } = await translateToEnglish(data.content);
@@ -20,6 +20,32 @@ export async function POST(req) {
     return NextResponse.json({ success: false, error: err.message }, { status: 500 });
   }
 }
+  */
+export async function POST(req) {
+    console.log("🔁 API HIT: /api/feedback");
+    try {
+      await dbConnect();
+      console.log("✅ Connected to MongoDB");
+  
+      const data = await req.json();
+      console.log("📥 Received Data:", data);
+  
+      // TEMP: Bypass translation & rating
+      data.translatedText = data.content;
+      data.language = "en";
+      data.starRating = 3;
+  
+      const feedback = await Feedback.create(data);
+      console.log("✅ Feedback Saved:", feedback);
+  
+      return NextResponse.json({ success: true, feedback });
+    } catch (err) {
+      console.error("❌ Error:", err.message);
+      return NextResponse.json({ success: false, error: err.message }, { status: 500 });
+    }
+  }
+  
+
 
 export async function GET() {
   try {
