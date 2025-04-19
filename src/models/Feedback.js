@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose');
 
 const FeedbackSchema = new mongoose.Schema({
   source: String,
@@ -18,4 +18,4 @@ const FeedbackSchema = new mongoose.Schema({
   },
 });
 
-export default mongoose.models.Feedback || mongoose.model("Feedback", FeedbackSchema);
+module.exports = mongoose.models.Feedback || mongoose.model('Feedback', FeedbackSchema);
